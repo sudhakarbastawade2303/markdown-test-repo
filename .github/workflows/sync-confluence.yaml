@@ -3,7 +3,7 @@ name: Sync Markdown to Confluence with Spell Check
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'docs/**/*'
 
