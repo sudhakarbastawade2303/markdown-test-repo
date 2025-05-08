@@ -3,7 +3,7 @@ dictionary:
   name: en_US
 tasks:
 - task_name: markdown
-  sources:
+  matrix:
   - path: docs/
     include:
     - '**/*.md'
