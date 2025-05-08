@@ -1,9 +1,11 @@
 version: 0.33.1
 dictionary:
   name: en_US
-sources:
-- path: docs/
-  include:
-  - '**/*.md'
+tasks:
+- task_name: markdown
+  sources:
+  - path: docs/
+    include:
+    - '**/*.md'
 output:
   format: reviewdog
