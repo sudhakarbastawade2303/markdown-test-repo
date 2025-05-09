@@ -33,6 +33,7 @@ jobs:
                   -v "${PWD}:/workspace" \
                   -w /workspace \
                   kovetskiy/mark:latest \
+                  mark \
                   -u "${CONFLUENCE_USER}" \
                   -p "${CONFLUENCE_TOKEN}" \
                   -b "${CONFLUENCE_BASE_URL}" \
@@ -51,5 +52,6 @@ jobs:
             CONFLUENCE_BASE_URL: ${{ secrets.CONFLUENCE_BASE_URL }}
             CONFLUENCE_SPACE: demo
             CONFLUENCE_PARENT_ID: 284813
+        
         
         
