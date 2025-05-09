@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
+      CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USERNAME }}
       CONFLUENCE_TOKEN: ${{ secrets.CONFLUENCE_API_TOKEN }}
       CONFLUENCE_BASE_URL: ${{ secrets.CONFLUENCE_BASE_URL }}
 
