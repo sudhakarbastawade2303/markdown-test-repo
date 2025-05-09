@@ -18,9 +18,4 @@ This section introduces the purpose of the page. You can add more detailed infor
 2. **Step 2**: Configure the settings.
 3. **Step 3**: Test the installation.
 
-## Notes
-
-- This page was synced from a GitHub repository.
-- Keep the documentation updated by pushing changes to the repository.
-
 > Documentation sourced from myrepo
