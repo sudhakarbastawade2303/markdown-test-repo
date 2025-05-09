@@ -7,7 +7,7 @@ on:
 jobs:
   sync-confluence:
     runs-on: ubuntu-latest
-    container: kovertskiy/mark:latest
+    container: kovetskiy/mark:latest
     env:
       CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
       CONFLUENCE_TOKEN: ${{ secrets.CONFLUENCE_TOKEN }}
