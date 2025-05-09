@@ -29,7 +29,21 @@ jobs:
             docker run --rm kovetskiy/mark:latest mark --version
             docker run --rm kovetskiy/mark:latest mark --help
         
-
+      - name: Try a minimal valid Mark sync
+        run: |
+              docker run --rm \
+                -v "${PWD}:/workspace" \
+                -w /workspace \
+                kovetskiy/mark:latest \
+                mark \
+                -u "${CONFLUENCE_USER}" \
+                -p "${CONFLUENCE_TOKEN}" \
+                -b "${CONFLUENCE_BASE_URL}" \
+                -f "docs/example.md" \
+                -s "${CONFLUENCE_SPACE}" \
+                -P "${CONFLUENCE_PARENT_ID}" \
+                --title-from-h1 --ci
+          
       
         
         
