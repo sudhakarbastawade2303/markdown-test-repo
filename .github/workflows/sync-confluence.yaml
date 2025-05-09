@@ -45,7 +45,7 @@ jobs:
                 echo "Skipping empty file: $file"
               fi
             done
-          env:
+        env:
             CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
             CONFLUENCE_TOKEN: ${{ secrets.CONFLUENCE_TOKEN }}
             CONFLUENCE_BASE_URL: ${{ secrets.CONFLUENCE_BASE_URL }}
