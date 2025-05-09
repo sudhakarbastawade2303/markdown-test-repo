@@ -1,6 +1,6 @@
 <!-- Space: demo -->
 <!-- Title: Example Page -->
-<!-- Parent: Documentation -->
+<!-- Parent: Intro -->
 <!-- Label: poc -->
 
 # Example Page

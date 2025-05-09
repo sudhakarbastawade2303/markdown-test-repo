@@ -1,11 +1,10 @@
 version: 0.33.1
 dictionary:
   name: en_US
+
 tasks:
 - task_name: markdown
-  matrix:
+  sources:
   - path: docs/
     include:
     - '**/*.md'
-output:
-  format: reviewdog
