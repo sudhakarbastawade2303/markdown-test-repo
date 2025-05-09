@@ -5,6 +5,6 @@
 
 # Example Page
 
-This is a POC page for our Confluence sync setup. Test again
+This is a POC page for our Confluence sync setup.
 
 ![Sample Image](image.png)
