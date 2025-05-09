@@ -9,12 +9,12 @@ jobs:
   deploy-docs:
     runs-on: ubuntu-latest
 
-    #env:
-    #  CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
-    #  CONFLUENCE_TOKEN: ${{ secrets.CONFLUENCE_TOKEN }}
-    #  CONFLUENCE_BASE_URL: ${{ secrets.CONFLUENCE_BASE_URL }}
-    #  CONFLUENCE_SPACE: demo
-    #  CONFLUENCE_PARENT_ID: 284813  # Change to actual parent page ID
+    env:
+      CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
+      CONFLUENCE_TOKEN: ${{ secrets.CONFLUENCE_TOKEN }}
+      CONFLUENCE_BASE_URL: ${{ secrets.CONFLUENCE_BASE_URL }}
+      CONFLUENCE_SPACE: demo
+      CONFLUENCE_PARENT_ID: 284813  # Change to actual parent page ID
 
     steps:
       - name: Checkout Repository
