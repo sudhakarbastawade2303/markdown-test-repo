@@ -24,15 +24,14 @@ jobs:
         run: |
           docker pull kovetskiy/mark:latest
 
-          - name: Deploy Markdown Docs to Confluence
-          run: |
+      - name: Deploy Markdown Docs to Confluence
+        run: |
             for file in $(find docs/ -type f -name '*.md'); do
               if [ -s "$file" ]; then
                 echo "> Syncing $file..."
                 docker run --rm \
                   -v "${PWD}:/workspace" \
                   -w /workspace \
-                  --entrypoint /usr/bin/mark \
                   kovetskiy/mark:latest \
                   -u "${CONFLUENCE_USER}" \
                   -p "${CONFLUENCE_TOKEN}" \
@@ -52,4 +51,5 @@ jobs:
             CONFLUENCE_BASE_URL: ${{ secrets.CONFLUENCE_BASE_URL }}
             CONFLUENCE_SPACE: demo
             CONFLUENCE_PARENT_ID: 284813
+        
         
