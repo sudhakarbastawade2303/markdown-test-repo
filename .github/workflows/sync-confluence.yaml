@@ -20,13 +20,14 @@ jobs:
 
         - name: Deploy Docs
           run: |
-            for file in ${find docs/ -type f -name '*.md'); do}
-                if [ -s "$file" ]; then
-                    echo "> sync $file"
-                    mark -u $CONFLUENCE_USER -p $CONFLUENCE_TOKEN -b $CONFLUENCE_BASE_URL -f $file --title-from-h1 --ci;
-                else
-                    echo "File is empty"
-                fi
-                echo;
+            for file in $(find docs/ -type f -name '*.md'); do
+              if [ -s "$file" ]; then
+                echo "> sync $file"
+                mark -u "$CONFLUENCE_USER" -p "$CONFLUENCE_TOKEN" -b "$CONFLUENCE_BASE_URL" -f "$file" --title-from-h1 --ci
+              else
+                echo "File is empty"
+              fi
+              echo
             done
+        
     
