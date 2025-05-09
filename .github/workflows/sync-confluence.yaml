@@ -24,34 +24,13 @@ jobs:
         run: |
           docker pull kovetskiy/mark:latest
 
-      - name: Deploy Markdown Docs to Confluence
+      - name: Debug Mark Command
         run: |
-            for file in $(find docs/ -type f -name '*.md'); do
-              if [ -s "$file" ]; then
-                echo "> Syncing $file..."
-                docker run --rm \
-                  -v "${PWD}:/workspace" \
-                  -w /workspace \
-                  kovetskiy/mark:latest \
-                  mark \
-                  -u "${CONFLUENCE_USER}" \
-                  -p "${CONFLUENCE_TOKEN}" \
-                  -b "${CONFLUENCE_BASE_URL}" \
-                  -f "$file" \
-                  -s "${CONFLUENCE_SPACE}" \
-                  -P "${CONFLUENCE_PARENT_ID}" \
-                  --title-from-h1 \
-                  --ci
-              else
-                echo "Skipping empty file: $file"
-              fi
-            done
-        env:
-            CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
-            CONFLUENCE_TOKEN: ${{ secrets.CONFLUENCE_TOKEN }}
-            CONFLUENCE_BASE_URL: ${{ secrets.CONFLUENCE_BASE_URL }}
-            CONFLUENCE_SPACE: demo
-            CONFLUENCE_PARENT_ID: 284813
+            docker run --rm kovetskiy/mark:latest mark --version
+            docker run --rm kovetskiy/mark:latest mark --help
+        
+
+      
         
         
         
