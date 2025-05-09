@@ -9,12 +9,12 @@ jobs:
   deploy-docs:
     runs-on: ubuntu-latest
 
-    env:
-      CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
-      CONFLUENCE_TOKEN: ${{ secrets.CONFLUENCE_TOKEN }}
-      CONFLUENCE_BASE_URL: ${{ secrets.CONFLUENCE_BASE_URL }}
-      CONFLUENCE_SPACE: demo
-      CONFLUENCE_PARENT_ID: 284813  # Change to actual parent page ID
+    #env:
+    #  CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
+    #  CONFLUENCE_TOKEN: ${{ secrets.CONFLUENCE_TOKEN }}
+    #  CONFLUENCE_BASE_URL: ${{ secrets.CONFLUENCE_BASE_URL }}
+    #  CONFLUENCE_SPACE: demo
+    #  CONFLUENCE_PARENT_ID: 284813  # Change to actual parent page ID
 
     steps:
       - name: Checkout Repository
@@ -24,8 +24,8 @@ jobs:
         run: |
           docker pull kovetskiy/mark:latest
 
-      - name: Deploy Markdown Docs to Confluence
-        run: |
+          - name: Deploy Markdown Docs to Confluence
+          run: |
             for file in $(find docs/ -type f -name '*.md'); do
               if [ -s "$file" ]; then
                 echo "> Syncing $file..."
@@ -33,17 +33,23 @@ jobs:
                   -v "${PWD}:/workspace" \
                   -w /workspace \
                   --entrypoint /usr/bin/mark \
-                  -e "MARK_USER=$CONFLUENCE_USER" \
-                  -e "MARK_PASSWORD=$CONFLUENCE_TOKEN" \
                   kovetskiy/mark:latest \
-                  -u "$CONFLUENCE_USER" \
-                  -p "$CONFLUENCE_TOKEN" \
-                  -b "$CONFLUENCE_BASE_URL" \
+                  -u "${CONFLUENCE_USER}" \
+                  -p "${CONFLUENCE_TOKEN}" \
+                  -b "${CONFLUENCE_BASE_URL}" \
                   -f "$file" \
-                  -s "$CONFLUENCE_SPACE" \
-                  -P "$CONFLUENCE_PARENT_ID" \
+                  -s "${CONFLUENCE_SPACE}" \
+                  -P "${CONFLUENCE_PARENT_ID}" \
                   --title-from-h1 \
                   --ci
+              else
+                echo "Skipping empty file: $file"
               fi
             done
+          env:
+            CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
+            CONFLUENCE_TOKEN: ${{ secrets.CONFLUENCE_TOKEN }}
+            CONFLUENCE_BASE_URL: ${{ secrets.CONFLUENCE_BASE_URL }}
+            CONFLUENCE_SPACE: demo
+            CONFLUENCE_PARENT_ID: 284813
         
