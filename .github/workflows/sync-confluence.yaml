@@ -15,25 +15,18 @@ jobs:
       CONFLUENCE_PARENT_ID: 284813
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+        - name: Checkout repository
+          uses: actions/checkout@v3
 
-      - name: Sync Markdown files to Confluence
-        run: |
-          for file in $(find docs/ -type f -name '*.md'); do
-            echo "> Syncing $file..."
-            docker run --rm \
-              -v "${PWD}:/workspace" \
-              -w /workspace \
-              -e CONFLUENCE_USER="${CONFLUENCE_USER}" \
-              -e CONFLUENCE_TOKEN="${CONFLUENCE_TOKEN}" \
-              -e CONFLUENCE_BASE_URL="${CONFLUENCE_BASE_URL}" \
-              kovetskiy/mark:latest \
-              -u "$CONFLUENCE_USER" \
-              -p "$CONFLUENCE_TOKEN" \
-              -b "$CONFLUENCE_BASE_URL" \
-              -f "$file" \
-              -s "$CONFLUENCE_SPACE" \
-              -P "$CONFLUENCE_PARENT_ID" \
-              --title-from-h1 --ci
-          done
+        - name: Deploy Docs
+          run: |
+            for file in ${find docs/ -type f -name '*.md'); do}
+                if [ -s "$file" ]; then
+                    echo "> sync $file"
+                    mark -u $CONFLUENCE_USER -p $CONFLUENCE_TOKEN -b $CONFLUENCE_BASE_URL -f $file --title-from-h1 --ci;
+                else
+                    echo "File is empty"
+                fi
+                echo;
+            done
+    
