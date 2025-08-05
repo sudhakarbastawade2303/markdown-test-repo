@@ -1,0 +1,44 @@
+name: Sync Docs to Confluence
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USERNAME }}
+      CONFLUENCE_TOKEN: ${{ secrets.CONFLUENCE_API_TOKEN }}
+      CONFLUENCE_BASE_URL: ${{ secrets.CONFLUENCE_BASE_URL }}
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Install Mark CLI
+        run: docker pull kovetskiy/mark:latest
+
+      - name: Deploy Docs
+        run: |
+          for file in $(find docs/ -type f -name '*.md'); do
+            if [ -s "$file" ]; then
+              echo "> Syncing $file"
+              docker run --rm \
+                -e CONFLUENCE_USER="$CONFLUENCE_USER" \
+                -e CONFLUENCE_TOKEN="$CONFLUENCE_TOKEN" \
+                -e CONFLUENCE_BASE_URL="$CONFLUENCE_BASE_URL" \
+                -v "$PWD:/data" \
+                kovetskiy/mark:latest \
+                mark \
+                  -u "$CONFLUENCE_USER" \
+                  -p "$CONFLUENCE_TOKEN" \
+                  -b "$CONFLUENCE_BASE_URL" \
+                  -f "/data/$file" \
+                  --ci \
+                  --log-level DEBUG
+            else
+              echo "File is empty: $file"
+            fi
+          done
